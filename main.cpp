@@ -4,6 +4,7 @@
 #include"bytype.h"
 #include<QString>
 #include<iostream>
+#include <cmath>
 void print(QMap<QString, QPair< uint64_t,double>> files){ //функция печати на консоль
     QList<QString> NameFiles = files.keys();
     QList< QPair< uint64_t,double>> SizeFile = files.values();
@@ -12,8 +13,8 @@ void print(QMap<QString, QPair< uint64_t,double>> files){ //функция пе�
           std::cout<<NameFiles[i].toStdString()<<' '<< files.values()[i].first <<" <0.01" <<std::endl;
      }
 else{
-    std::cout.precision(2);
-    std::cout<<NameFiles[i].toStdString()<<' '<< files.values()[i].first <<' ' << files.values()[i].second<<std::endl;
+
+    std::cout<<NameFiles[i].toStdString()<<' '<< files.values()[i].first <<' ' <<  round(files.values()[i].second*100)/100.<<std::endl;
 }
     }
 
@@ -29,11 +30,14 @@ else{
 */
 int main()
 { MainWindow_FileBrowser* client = new MainWindow_FileBrowser(new ByFile());
-  QString path = "C:\\Program Files\\Git"; //путь к папке
+  QString path = "C:\\Users\\KOSTJA\\programm"; //путь к папке
+  QString path_ = "C:\Program Files\Git\test";
   QMap<QString, QPair< uint64_t,double>> files;
 
   client->setPercentageStrategy(0); //изменяем стратегию
   files = client->useCalculate(path);
+  print(files);
+  files = client->useCalculate(path_);
   print(files);
 
 
